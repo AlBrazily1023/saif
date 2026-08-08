@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مفاجأة عيد الميلاد 🥳</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #333;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      width: 85%;
+      max-width: 350px;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 10;
+    }
+    input {
+      padding: 12px;
+      width: 90%;
+      margin: 8px 0;
+      border: 2px solid #ff758c;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    input:focus {
+      border-color: #ff4b6e;
+    }
+    button {
+      background: #ff758c;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #ff4b6e;
+    }
+    .step { 
+      display: none; 
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .active { 
+      display: block; 
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* خلفية الاحتفال */
+    .heart {
+      position: absolute;
+      color: #ff4b6e;
+      font-size: 20px;
+      animation: fall 3s linear infinite;
+      top: -10%;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div id="step1" class="step active">
+      <h2>🔐 افتحي القفل!</h2>
+      <p>اكتبي كلمة السر السرية:</p>
+      <input type="password" id="passInput" placeholder="كلمة السر">
+      <br>
+      <button onclick="checkPass()">افتحي</button>
+    </div>
+
+    <div id="step2" class="step">
+      <h2>🎉 جاهزة للمفاجأة؟</h2>
+      <p>اضغطي على الزر للتالي 👇</p>
+      <button onclick="nextStep(3)">التالي 🚀</button>
+    </div>
+
+    <div id="step3" class="step">
+      <h2>❤️ اكتبوا أسمائكم</h2>
+      <input type="text" id="herName" placeholder="اسمك الجميل">
+      <input type="text" id="hisName" placeholder="اسم حبيبك">
+      <br>
+      <button onclick="showFinal()">احسبي نسبة الحب 💌</button>
+    </div>
+
+    <div id="step4" class="step">
+      <h1 id="greetingTitle">🎂 كل سنة وأنتي طيبة يا بسبوسه❤⚡!</h1>
+      <p id="finalMsg">
+        كل سنة وأنتي أجمل بنت تكبر سنة😂❤! ويا رب اشوفك محققة اللي نفسك فيه يا سكر وربنا يديمك ليا يا عسولة❤️✨
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const SECRET_PASS = "125600"; 
+
+    function checkPass() {
+      const pass = document.getElementById('passInput').value;
+      if (pass === SECRET_PASS) {
+        nextStep(2);
+      } else {
+        alert('كلمة السر غلط يا بسبوسه! جربي تاني 😉');
+      }
+    }
+
+    function nextStep(stepNum) {
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + stepNum).classList.add('active');
+    }
+
+    function showFinal() {
+      const name1 = document.getElementById('herName').value.trim();
+      const name2 = document.getElementById('hisName').value.trim();
+      if (name1 && name2) {
+        document.getElementById('greetingTitle').innerText = `كل سنة وأنتي طيبة يا ${name1}! ❤️`;
+        nextStep(4);
+        startHearts();
+      } else {
+        alert('اكتبي الأسماء الأول!');
+      }
+    }
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = ['❤️', '💖', '🎉', '🎈', '✨'][Math.floor(Math.random() * 5)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }, 300);
+    }
+  </script>
+</body>
+</html>
