@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مفاجأة خاصة جداً 🤫❤</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #333;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 25px 15px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      width: 90%;
+      max-width: 380px;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+    h2 { font-size: 20px; color: #ff4b6e; margin-top: 0; }
+    p { font-size: 15px; line-height: 1.5; margin: 8px 0; color: #444; }
+    input {
+      padding: 10px;
+      width: 85%;
+      margin: 6px 0;
+      border: 2px solid #ff758c;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    button {
+      background: #ff758c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .step { display: none; }
+    .active { display: block; }
+
+    /* Scratch Cards */
+    .scratch-container {
+      position: relative;
+      width: 200px;
+      height: 100px;
+      margin: 15px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #ddd;
+    }
+    .scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+    .scratch-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    /* Wheel */
+    #wheel-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 10px auto;
+    }
+    #wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid #ff758c;
+      transition: transform 3s cubic-bezier(0.15, 0.99, 0.18, 0.99);
+      background: conic-gradient(
+        #ff758c 0deg 90deg, 
+        #ffb6c1 90deg 180deg, 
+        #ff4b6e 180deg 270deg, 
+        #fecfef 270deg 360deg
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: white;
+      font-size: 14px;
+    }
+    #wheel-pointer {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 15px solid #333;
+      z-index: 5;
+    }
+
+    /* Gift Boxes */
+    .boxes-wrapper {
+      display: flex;
+      justify-content: space-around;
+      margin: 15px 0;
+    }
+    .box {
+      font-size: 40px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .box:hover {
+      transform: scale(1.2);
+    }
+
+    /* Animation & Decor */
+    .heart {
+      position: absolute;
+      color: #ff4b6e;
+      font-size: 20px;
+      animation: fall 3s linear infinite;
+      top: -10%;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    #love-status {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff4b6e;
+      margin: 10px 0;
+    }
+    .custom-message {
+      background: #fff0f5;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px dashed #ff758c;
+      font-size: 15px;
+      line-height: 1.6;
+      text-align: right;
+      color: #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- خطوة 1: القفل الأول -->
+    <div id="step1" class="step active">
+      <h2>🔐 افتحي القفل!</h2>
+      <p>اكتبي كلمة السر السرية:</p>
+      <input type="text" id="passInput" placeholder="كلمة السر">
+      <br>
+      <button onclick="checkPass()">افتحي</button>
+    </div>
+
+    <!-- خطوة 2: المقدمة -->
+    <div id="step2" class="step">
+      <h2>🎉 اجهزيي للمفاجأة يا بسبوسه؟</h2>
+      <p>اللينك ده من برازيلي😁 ليكِ مخصوص 🙊</p>
+      <button onclick="nextStep(3)">يلا بينا 🚀</button>
+    </div>
+
+    <!-- خطوة 3: الخربشة 1 -->
+    <div id="step3" class="step">
+      <h2>✍ خربشي الكرت ده!</h2>
+      <p>حركي صباعك على المربع الفضي عشان تشوفي الرسالة 🙈</p>
+      <div class="scratch-container">
+        <div class="scratch-message">شطورة طلعتي بتعرفي تخربشي😁عاش... كملي يا  سكر ❤✨</div>
+        <canvas id="scratch-canvas-1" class="scratch-canvas" width="200" height="100"></canvas>
+      </div>
+      <button id="scratch-btn-1" onclick="nextStep(4)" style="display:none;">كملي الخربشة الأول!</button>
+    </div>
+
+    <!-- خطوة 4: السن -->
+    <div id="step4" class="step">
+      <h2>🔢 تجميع بيانات هبلة كدة😂</h2>
+      <input type="number" id="herAge" placeholder="اكتبي هنا سنك كام سنة ؟">
+      <input type="number" id="hisAge" placeholder="اكتبي هنا سن برازيلي كام؟">
+      <br>
+      <button onclick="checkAges()">التالي</button>
+    </div>
+
+    <!-- خطوة 5: الأسماء -->
+    <div id="step5" class="step">
+      <h2>❤ آخر خطوة بس موعدكيش😂</h2>
+      <input type="text" id="hisNameInput" placeholder="اسم برازيلي الحقيقي">
+      <input type="text" id="herNameInput" placeholder="اسمك الحقيقي ي بت انتي">
+      <br>
+      <button onclick="calculateLove()">نقيس الحب 💌</button>
+    </div>
+
+    <!-- خطوة 6: تحليل المشاعر -->
+    <div id="step6" class="step">
+      <h2>✨ جاري تحليل المشاعر... ✨</h2>
+      <div id="love-status">1%</div>
+    </div>
+
+    <!-- خطوة 7: عجلة الحظ -->
+    <div id="step7" class="step">
+      <h2>🎡 لفّي عجلة الحظ!</h2>
+      <p>جربي حظك وشوفي هيطلعلك إيه 🎁</p>
+      <div id="wheel-container">
+        <div id="wheel-pointer"></div>
+        <div id="wheel">🎁 حظك حلو محدش قدك😂!</div>
+      </div>
+      <button onclick="spinWheel()">لفي العجلة 🌀</button>
+    </div>
+
+    <!-- خطوة 8: الصندوق -->
+    <div id="step8" class="step">
+      <h2>🎁 اختاري صندوق الهدايا!</h2>
+      <p>صندوق واحد بس متبقيش طماعهه🤫</p>
+      <div class="boxes-wrapper">
+        <div class="box" onclick="openBox(1)">🎁</div>
+        <div class="box" onclick="openBox(2)">🎁</div>
+        <div class="box" onclick="openBox(3)">🎁</div>
+      </div>
+    </div>
+
+    <!-- خطوة 9: كلمة السر الثانية -->
+    <div id="step9" class="step">
+      <h2>🔑 كلمة السر الثانية!</h2>
+      <p>اكتبي رمز التشفير الثاني عشان تفكي الحظر 😉</p>
+      <input type="text" id="secondPassInput" placeholder="كلمة السر الثانية">
+      <br>
+      <button onclick="checkSecondPass()">تأكيد 🔓</button>
+    </div>
+
+    <!-- خطوة 10: الخربشة الثانية -->
+    <div id="step10" class="step">
+      <h2>✍ خربشي كرت المفاجأة الكبرى!</h2>
+      <p>اكتشفي السر الأخير... 🤫</p>
+      <div class="scratch-container">
+        <div class="scratch-message">جهزي نفسك يا بسبوسة! 🎉</div>
+        <canvas id="scratch-canvas-2" class="scratch-canvas" width="200" height="100"></canvas>
+      </div>
+      <button id="scratch-btn-2" onclick="showFinalMessage()" style="display:none;">افتحي الرسالة ✨</button>
+    </div>
+
+    <!-- خطوة 11:اوعدك خلاص اخر حاجه زهقت منك اصلا😂 -->
+    <div id="step11" class="step">
+      <h2 id="greetingTitle" style="color: #ff4b6e; margin-bottom: 10px;">🎂 كل سنة وأنتي طيبة يا بسبوسه❤⚡!</h2>
+      <div class="custom-message">
+        كل سنه وانتي اجمل بنت تكبر سنه ويارب اشوفك محققه الي نفسك في ي سكر وفرحانه دايما وزي ما قولتلك ان هعملك عيد ميلاد متعملش ف اوعدك ان دي نبذه بس كده لاكن لس هجبلك هداية لعيد ميلادك ي بسبوستي😂❤️وف النهاية كل سنه وانتي طيبه ي شق😉حاجه هبله زيك كد بس طلعت عين امي😁يلا كفايا كده زهقت منك😂
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function parseArabicNumbers(str) {
+      return str.replace(/[٠-٩]/g, function(d) {
+        return "٠١٢٣٤٥٦٧٨٩".indexOf(d);
+      });
+    }
+
+    function checkPass() {
+      var passInput = document.getElementById('passInput').value.trim();
+      var cleanPass = parseArabicNumbers(passInput);
+
+      if (cleanPass === "125600") {
+        nextStep(2);
+      } else {
+        alert('كلمة السر غلط يا بسبوسه! جربي تاني 😉');
+      }
+    }
+
+    function nextStep(stepNum) {
+      document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+      document.getElementById('step' + stepNum).classList.add('active');
+      
+      if (stepNum === 3) initScratchCard('scratch-canvas-1', 'scratch-btn-1');
+      if (stepNum === 10) initScratchCard('scratch-canvas-2', 'scratch-btn-2');
+    }
+
+    function initScratchCard(canvasId, btnId) {
+      var canvas = document.getElementById(canvasId);
+      var ctx = canvas.getContext('2d');
+      var btn = document.getElementById(btnId);
+      
+      ctx.fillStyle = '#C0C0C0';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'destination-out';
+      
+      var isDrawing = false;
+      var count = 0;
+
+      function scratch(e) {
+        var rect = canvas.getBoundingClientRect();
+        var clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        var clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        var x = clientX - rect.left;
+        var y = clientY - rect.top;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        count++;
+        if (count > 20) {
+          btn.style.display = 'inline-block';
+          btn.innerText = 'عاش.. كملي 🚀';
+        }
+      }
+
+      canvas.addEventListener('mousedown', function(e) { isDrawing = true; scratch(e); });
+      canvas.addEventListener('touchstart', function(e) { isDrawing = true; scratch(e); });
+      window.addEventListener('mousemove', function(e) { if (isDrawing) scratch(e); });
+      window.addEventListener('touchmove', function(e) { if (isDrawing) scratch(e); });
+      window.addEventListener('mouseup', function() { isDrawing = false; });
+      window.addEventListener('touchend', function() { isDrawing = false; });
+    }
+
+    function checkAges() {
+      var herAge = document.getElementById('herAge').value;
+      var hisAge = document.getElementById('hisAge').value;
+      if (herAge && hisAge) {
+        nextStep(5);
+      } else {
+        alert('اكتبي السن الأول يا عسولة! 😂');
+      }
+    }
+
+    function calculateLove() {
+      var herName = document.getElementById('herNameInput').value.trim();
+      if (herName) {
+        nextStep(6);
+        animateLoveCounter();
+      } else {
+        alert('اكتبي اسمك الأول 😉');
+      }
+    }
+
+    function animateLoveCounter() {
+      var statusDiv = document.getElementById('love-status');
+      var count = 1;
+      
+      var interval = setInterval(function() {
+        count += Math.floor(Math.random() * 10) + 5;
+        if (count >= 100) {
+          clearInterval(interval);
+          statusDiv.innerText = "100% (أكيد يعني! 😍)";
+          setTimeout(function() {
+            nextStep(7);
+          }, 1000);
+        } else {
+          statusDiv.innerText = count + "%";
+        }
+      }, 100);
+    }
+
+    /* العجلة */
+    function spinWheel() {
+      var wheel = document.getElementById('wheel');
+      var randomDeg = 1440 + Math.floor(Math.random() * 360);
+      wheel.style.transform = 'rotate(' + randomDeg + 'deg)';
+      setTimeout(function() {
+        alert('مبروك! كسبتي هدية عيد ميلاد عظيمة 🎉');
+        nextStep(8);
+      }, 3200);
+    }
+
+    /* اختيار الصندوق */
+    function openBox(num) {
+      alert('صح كدة! فتحتي الصندوق السحري 🎁');
+      nextStep(9);
+    }
+
+    /* كلمة السر الثانية */
+    function checkSecondPass() {
+      var passInput = document.getElementById('secondPassInput').value.trim();
+      var cleanPass = parseArabicNumbers(passInput);
+
+      if (cleanPass === "9/8/2007" || cleanPass === "بسبوسة") {
+        nextStep(10);
+      } else {
+        alert('كلمة السر التانية غلط يا سكر! 😉 (جربي 9/8/2007 أو كلمة بسبوسة)');
+      }
+    }
+
+    /* إظهار الرسالة النهائية والزينة */
+    function showFinalMessage() {
+      nextStep(11);
+      startHearts();
+    }
+
+    /* زينة القلوب والألعاب النارية */
+    function startHearts() {
+      setInterval(function() {
+        var heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = ['❤️', '💖', '🎉', '✨', '🎂'][Math.floor(Math.random() * 5)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(heart);
+        setTimeout(function() { heart.remove(); }, 3000);
+      }, 250);
+    }
+  </script>
+</body>
+</html>
